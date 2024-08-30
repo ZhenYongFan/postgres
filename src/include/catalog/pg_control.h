@@ -86,13 +86,13 @@ typedef struct CheckPoint
  */
 typedef enum DBState
 {
-	DB_STARTUP = 0,
-	DB_SHUTDOWNED,
-	DB_SHUTDOWNED_IN_RECOVERY,
-	DB_SHUTDOWNING,
-	DB_IN_CRASH_RECOVERY,
-	DB_IN_ARCHIVE_RECOVERY,
-	DB_IN_PRODUCTION
+	DB_STARTUP = 0,				// 数据库启动
+	DB_SHUTDOWNED,				// 数据库正常关闭
+	DB_SHUTDOWNED_IN_RECOVERY,	// 数据库在恢复时关闭
+	DB_SHUTDOWNING,				// 数据库启动到正常关闭过程中崩溃
+	DB_IN_CRASH_RECOVERY,		// 数据库在恢复过程中崩溃
+	DB_IN_ARCHIVE_RECOVERY,		// 数据库处于归档恢复
+	DB_IN_PRODUCTION			// 数据库处于正常工作状态，等待接受事务处理
 } DBState;
 
 /*
