@@ -175,7 +175,7 @@ smgropen(RelFileLocator rlocator, BackendId backend)
 	/* Initialize it if not present before */
 	if (!found)
 	{
-		/* hash_search already filled in the lookup key */
+		// hash_search 填充了查找键 reln->smgr_rlocator
 		reln->smgr_owner = NULL;
 		reln->smgr_targblock = InvalidBlockNumber;
 		for (int i = 0; i <= MAX_FORKNUM; ++i)

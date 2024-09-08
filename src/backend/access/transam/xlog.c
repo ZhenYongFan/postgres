@@ -6201,7 +6201,7 @@ ShutdownXLOG(int code, Datum arg)
 	 * from writing new WAL.
 	 */
 	WalSndWaitStopping();
-
+	// 备机写checkpoint
 	if (RecoveryInProgress())
 		CreateRestartPoint(CHECKPOINT_IS_SHUTDOWN | CHECKPOINT_IMMEDIATE);
 	else
@@ -7085,6 +7085,7 @@ RecoveryRestartPoint(const CheckPoint *checkPoint, XLogReaderState *record)
 	 * work out the next time it wants to perform a restartpoint.
 	 */
 	SpinLockAcquire(&XLogCtl->info_lck);
+	// ReadRecPtr为读取checkpoint记录后的位置
 	XLogCtl->lastCheckPointRecPtr = record->ReadRecPtr;
 	XLogCtl->lastCheckPointEndPtr = record->EndRecPtr;
 	XLogCtl->lastCheckPoint = *checkPoint;
