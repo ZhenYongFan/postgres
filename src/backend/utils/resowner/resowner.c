@@ -434,7 +434,7 @@ ResourceOwnerCreate(ResourceOwner parent, const char *name)
 												   sizeof(ResourceOwnerData));
 	owner->name = name;
 
-	if (parent)
+	if (parent != NULL)
 	{
 		owner->parent = parent;
 		owner->nextchild = parent->firstchild;

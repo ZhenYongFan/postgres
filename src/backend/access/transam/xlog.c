@@ -469,7 +469,7 @@ typedef struct XLogCtlData
 
 	XLogSegNo	lastRemovedSegNo;	/* latest removed/recycled XLOG segment */
 
-	/* Fake LSN counter, for unlogged relations. Protected by ulsn_lck. */
+	/* Fake LSN counter, for unlogged relations.通过ulsn_lck的SpinLock保护. */
 	XLogRecPtr	unloggedLSN;
 	slock_t		ulsn_lck;
 
@@ -566,6 +566,7 @@ static WALInsertLockPadded *WALInsertLocks = NULL;
 
 /*
  * We maintain an image of pg_control in shared memory.
+ * 由 ControlFileLock 保护读写
  */
 static ControlFileData *ControlFile = NULL;
 
@@ -6477,7 +6478,7 @@ CreateCheckPoint(int flags)
 	else
 		shutdown = false;
 
-	/* sanity check */
+	// sanity check 防呆检查
 	if (RecoveryInProgress() && (flags & CHECKPOINT_END_OF_RECOVERY) == 0)
 		elog(ERROR, "can't create a checkpoint during recovery");
 
@@ -6781,9 +6782,7 @@ CreateCheckPoint(int flags)
 	 */
 	PriorRedoPtr = ControlFile->checkPointCopy.redo;
 
-	/*
-	 * Update the control file.
-	 */
+	// 更新control文件
 	LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
 	if (shutdown)
 		ControlFile->state = DB_SHUTDOWNED;
