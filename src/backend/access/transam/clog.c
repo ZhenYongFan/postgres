@@ -56,15 +56,20 @@
  * and page numbers in TruncateCLOG (see CLOGPagePrecedes).
  */
 
-/* We need two bits per xact, so four xacts fit in a byte */
+// 每个事务的状态需要2个bit表示
 #define CLOG_BITS_PER_XACT	2
+// 每个字节可保存4个事务的状态
 #define CLOG_XACTS_PER_BYTE 4
+// 每页可以保存的事务状态数
 #define CLOG_XACTS_PER_PAGE (BLCKSZ * CLOG_XACTS_PER_BYTE)
+// 对应状态的掩码
 #define CLOG_XACT_BITMASK	((1 << CLOG_BITS_PER_XACT) - 1)
-
+// 事务状态对应的页号
 #define TransactionIdToPage(xid)	((xid) / (TransactionId) CLOG_XACTS_PER_PAGE)
+// 事务状态对应的页内偏移
 #define TransactionIdToPgIndex(xid) ((xid) % (TransactionId) CLOG_XACTS_PER_PAGE)
 #define TransactionIdToByte(xid)	(TransactionIdToPgIndex(xid) / CLOG_XACTS_PER_BYTE)
+// 在字节内的序号 0，1，2，3
 #define TransactionIdToBIndex(xid)	((xid) % (TransactionId) CLOG_XACTS_PER_BYTE)
 
 /* We store the latest async LSN for each group of transactions */
@@ -639,6 +644,7 @@ TransactionIdGetStatus(TransactionId xid, XLogRecPtr *lsn)
 {
 	int			pageno = TransactionIdToPage(xid);
 	int			byteno = TransactionIdToByte(xid);
+	// 状态对应的bit位
 	int			bshift = TransactionIdToBIndex(xid) * CLOG_BITS_PER_XACT;
 	int			slotno;
 	int			lsnindex;
@@ -649,7 +655,7 @@ TransactionIdGetStatus(TransactionId xid, XLogRecPtr *lsn)
 
 	slotno = SimpleLruReadPage_ReadOnly(XactCtl, pageno, xid);
 	byteptr = XactCtl->shared->page_buffer[slotno] + byteno;
-
+	// 事务状态
 	status = (*byteptr >> bshift) & CLOG_XACT_BITMASK;
 
 	lsnindex = GetLSNIndex(slotno, xid);

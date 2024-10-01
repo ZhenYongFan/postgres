@@ -54,18 +54,14 @@ TransactionLogFetch(TransactionId transactionId)
 	XidStatus	xidstatus;
 	XLogRecPtr	xidlsn;
 
-	/*
-	 * Before going to the commit log manager, check our single item cache to
-	 * see if we didn't just check the transaction status a moment ago.
-	 */
+	// 在进入提交日志管理器之前，先检查我们的单条目缓存，看看是否刚检查了该事务状态。
 	if (TransactionIdEquals(transactionId, cachedFetchXid))
 		return cachedFetchXidStatus;
 
-	/*
-	 * Also, check to see if the transaction ID is a permanent one.
-	 */
+	// 同样，检查事务ID是否为特定的永久ID。
 	if (!TransactionIdIsNormal(transactionId))
 	{
+		// 系统初始化事务和冻结事务都是提交成功的事务
 		if (TransactionIdEquals(transactionId, BootstrapTransactionId))
 			return TRANSACTION_STATUS_COMMITTED;
 		if (TransactionIdEquals(transactionId, FrozenTransactionId))

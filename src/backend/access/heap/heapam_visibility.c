@@ -966,9 +966,10 @@ HeapTupleSatisfiesMVCC(HeapTuple htup, Snapshot snapshot,
 
 	Assert(ItemPointerIsValid(&htup->t_self));
 	Assert(htup->t_tableOid != InvalidOid);
-
+	// A. xmin事务未提交(HEAP_XMIN_COMMITTED标记未设置)
 	if (!HeapTupleHeaderXminCommitted(tuple))
 	{
+		// xmin为INVALID，通常是写入失败导致的，直接返回false
 		if (HeapTupleHeaderXminInvalid(tuple))
 			return false;
 
@@ -1011,17 +1012,18 @@ HeapTupleSatisfiesMVCC(HeapTuple htup, Snapshot snapshot,
 				}
 			}
 		}
-		else if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmin(tuple)))
+		else if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmin(tuple))) // A1. 本事务写入的元组（xmin是当前事务id）
 		{
+			// 写在启动读的前面，不可见（同步串行执行时不可能出现此逻辑）
 			if (HeapTupleHeaderGetCmin(tuple) >= snapshot->curcid)
-				return false;	/* inserted after scan started */
-
+				return false;
+			// 没有更新或者删除，可见 （即使xmin未提交，xmax也可能存在，如一个事务中插入之后删除或更新）
 			if (tuple->t_infomask & HEAP_XMAX_INVALID)	/* xid invalid */
 				return true;
-
+			// xmax在两种情况下被设置：对元组加锁；元组被删除，仅是加锁时可见
 			if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))	/* not deleter */
 				return true;
-
+			// xmax是 MultiXactId的场景，这里仍然判断xmax的作用是加锁还是删除
 			if (tuple->t_infomask & HEAP_XMAX_IS_MULTI)
 			{
 				TransactionId xmax;
@@ -1032,32 +1034,40 @@ HeapTupleSatisfiesMVCC(HeapTuple htup, Snapshot snapshot,
 				Assert(TransactionIdIsValid(xmax));
 
 				/* updating subtransaction must have aborted */
+				// 若xmax不是当前事务id，返回可见（不是当前事务删除的，
+				// 由于隔离级别是可重复读，即使其他事务删除后已提交，
+				// 对本快照依然是可见的）
 				if (!TransactionIdIsCurrentTransactionId(xmax))
 					return true;
 				else if (HeapTupleHeaderGetCmax(tuple) >= snapshot->curcid)
-					return true;	/* updated after scan started */
+					return true;	// 当前事务在获取快照后做的元组update，可见
 				else
-					return false;	/* updated before scan started */
+					return false;	// 当前事务在获取快照前做的元组update，不可见
 			}
-
+			// A1-4. xmax不是当前事务id 。xmax非MultiXactId，且非本事务删除的元组
 			if (!TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmax(tuple)))
 			{
-				/* deleting subtransaction must have aborted */
+				// 执行删除的子事务必须已终止
+				// 返回可见（不是当前事务删除的，由于隔离级别是可重复读，即使其他事务删除后已提交，
+				// 对本快照依然是可见的）
 				SetHintBits(tuple, buffer, HEAP_XMAX_INVALID,
 							InvalidTransactionId);
 				return true;
 			}
 
 			if (HeapTupleHeaderGetCmax(tuple) >= snapshot->curcid)
-				return true;	/* deleted after scan started */
+				return true;	// A1-5. 如果是在快照后做的元组delete，则可见
 			else
-				return false;	/* deleted before scan started */
+				return false;	// A1-6. 如果是在快照前做的元组delete，则不可见
 		}
-		else if (XidInMVCCSnapshot(HeapTupleHeaderGetRawXmin(tuple), snapshot))
+		else if (XidInMVCCSnapshot(HeapTupleHeaderGetRawXmin(tuple), snapshot))  // 用于判断xid对应事务是否仍在运行，若为true说明还在运行
 			return false;
 		else if (TransactionIdDidCommit(HeapTupleHeaderGetRawXmin(tuple)))
+		{
+			// A3. 通过clog判断xmin事务是否已提交，若已提交则设标记位，留到后面处理
 			SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED,
-						HeapTupleHeaderGetRawXmin(tuple));
+				HeapTupleHeaderGetRawXmin(tuple));
+		}
 		else
 		{
 			/* it must have aborted or crashed */
@@ -1136,12 +1146,12 @@ HeapTupleSatisfiesMVCC(HeapTuple htup, Snapshot snapshot,
 	}
 	else
 	{
-		/* xmax is committed, but maybe not according to our snapshot */
+		// C4.同样由于可重复读隔离级别，非本事务修改的，即使xmax已提交也可以看到修改前的值
 		if (XidInMVCCSnapshot(HeapTupleHeaderGetRawXmax(tuple), snapshot))
 			return true;		/* treat as still in progress */
 	}
 
-	/* xmax transaction committed */
+	// C5. xmax已提交，则不可见
 
 	return false;
 }
