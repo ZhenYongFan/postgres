@@ -262,7 +262,7 @@ GetTransactionSnapshot(void)
 		return HistoricSnapshot;
 	}
 
-	/* First call in transaction? */
+	// 第一次的事务拿快照会进这个分支，FirstSnapshotSet初始化=false
 	if (!FirstSnapshotSet)
 	{
 		/*
@@ -285,6 +285,7 @@ GetTransactionSnapshot(void)
 		 * directly.  Furthermore, if we're running in serializable mode,
 		 * predicate.c needs to wrap the snapshot fetch in its own processing.
 		 */
+		 // 如果隔离级别>=XACT_REPEATABLE_READ：可重复读或可串行化
 		if (IsolationUsesXactSnapshot())
 		{
 			/* First, create the snapshot in CurrentSnapshotData */
@@ -301,17 +302,17 @@ GetTransactionSnapshot(void)
 		}
 		else
 			CurrentSnapshot = GetSnapshotData(&CurrentSnapshotData);
-
+		// 下次进来不走这个分支
 		FirstSnapshotSet = true;
 		return CurrentSnapshot;
 	}
-
+	// 不是第一次调用了、而且隔离界别>=RR
 	if (IsolationUsesXactSnapshot())
 		return CurrentSnapshot;
 
 	/* Don't allow catalog snapshot to be older than xact snapshot. */
 	InvalidateCatalogSnapshot();
-
+	// RC级别、不是第一次拿快照：重新拿快照
 	CurrentSnapshot = GetSnapshotData(&CurrentSnapshotData);
 
 	return CurrentSnapshot;

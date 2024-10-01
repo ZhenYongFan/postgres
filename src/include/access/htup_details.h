@@ -167,6 +167,12 @@ struct HeapTupleHeaderData
 	uint16		t_infomask2;	/* number of attributes + various flags */
 
 #define FIELDNO_HEAPTUPLEHEADERDATA_INFOMASK 3
+	// t_infomask标识位用于加快元组的可见性判断，其实现原理为：当查询一条数据时，
+	// 需要判断所涉及元组的可见性，也就需要知道该元组的提交状态（ 查看CLOG） ，
+	// 如果同一条数据经常被查询或被访问，就需要多次去查看CLOG文件，
+	// 会涉及较高代价的I / O操作。
+	// 而将可见性标识位t_infomask直接写入把事务状态直接记录在元组头中（HeapTupleHeaderData），
+	// 避免频繁访问CLOG影响从而加快可见性判断。
 	uint16		t_infomask;		/* various flag bits, see below */
 
 #define FIELDNO_HEAPTUPLEHEADERDATA_HOFF 4

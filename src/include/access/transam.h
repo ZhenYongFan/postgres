@@ -29,7 +29,9 @@
  * ----------------
  */
 #define InvalidTransactionId		((TransactionId) 0)
+// 系统初始化时的事务ID，比任何普通的事务ID都旧
 #define BootstrapTransactionId		((TransactionId) 1)
+// 冻结的事务ID，比任何普通的事务ID都旧
 #define FrozenTransactionId			((TransactionId) 2)
 #define FirstNormalTransactionId	((TransactionId) 3)
 #define MaxTransactionId			((TransactionId) 0xFFFFFFFF)
