@@ -42,17 +42,6 @@
     <ClCompile Include="src/backend/access/index/amvalidate.c" />
     <ClCompile Include="src/backend/access/index/genam.c" />
     <ClCompile Include="src/backend/access/index/indexam.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtcompare.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtdedup.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtinsert.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtpage.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtree.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtsearch.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtsort.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtsplitloc.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtutils.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtvalidate.c" />
-    <ClCompile Include="src/backend/access/nbtree/nbtxlog.c" />
     <ClCompile Include="src/backend/access/rmgrdesc/brindesc.c" />
     <ClCompile Include="src/backend/access/rmgrdesc/clogdesc.c" />
     <ClCompile Include="src/backend/access/rmgrdesc/committsdesc.c" />
@@ -785,7 +774,7 @@
     <ClCompile Include="src/port/win32stat.c" />
     <ClCompile Include="src/timezone/localtime.c" />
     <ClCompile Include="src/timezone/pgtz.c" />
-    <ClCompile Include="src/timezone/strftime.c" />   
+    <ClCompile Include="src/timezone/strftime.c" />
     <ClCompile Include="src/backend/access/brin/brin.c">
       <Filter>access\brin</Filter>
     </ClCompile>
@@ -815,7 +804,7 @@
     </ClCompile>
     <ClCompile Include="src/backend/access/brin/brin_xlog.c">
       <Filter>access\brin</Filter>
-    </ClCompile> 
+    </ClCompile>
     <ClCompile Include="src/backend/access/gist/gist.c">
       <Filter>access\gist</Filter>
     </ClCompile>
@@ -848,7 +837,7 @@
     </ClCompile>
     <ClCompile Include="src/backend/access/gist/gistxlog.c">
       <Filter>access\gist</Filter>
-    </ClCompile>      
+    </ClCompile>
     <ClCompile Include="src/backend/access/transam/clog.c">
       <Filter>access\transam</Filter>
     </ClCompile>
@@ -917,6 +906,52 @@
     </ClCompile>
     <ClCompile Include="src/backend/access/transam/xact.c" />
     <ClCompile Include="src/backend/access/transam/xlog.c" />
+    <ClCompile Include="src/backend/access/hash/hash_xlog.c" />
+    <ClCompile Include="src/backend/access/hash/hashfunc.c" />
+    <ClCompile Include="src/backend/access/hash/hashinsert.c" />
+    <ClCompile Include="src/backend/access/hash/hashovfl.c" />
+    <ClCompile Include="src/backend/access/hash/hashpage.c" />
+    <ClCompile Include="src/backend/access/hash/hashsearch.c" />
+    <ClCompile Include="src/backend/access/hash/hashsort.c" />
+    <ClCompile Include="src/backend/access/hash/hashutil.c" />
+    <ClCompile Include="src/backend/access/hash/hashvalidate.c" />
+    <ClCompile Include="src/backend/access/heap/heapam.c" />
+    <ClCompile Include="src/backend/access/heap/heapam_handler.c" />
+    <ClCompile Include="src/backend/access/heap/heapam_visibility.c" />
+    <ClCompile Include="src/backend/access/heap/heaptoast.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtcompare.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtdedup.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtinsert.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtpage.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtree.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtsearch.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtsort.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtsplitloc.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtutils.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtvalidate.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/nbtree/nbtxlog.c">
+      <Filter>access\nbtree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src/backend/bootstrap/bootparse.y" />
