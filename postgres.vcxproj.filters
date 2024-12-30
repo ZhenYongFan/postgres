@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src/backend/access/common/attmap.c" />
+    <ClCompile Include="src/backend/access/common/bufmask.c" />
+    <ClCompile Include="src/backend/access/common/detoast.c" />
+    <ClCompile Include="src/backend/access/common/heaptuple.c" />
+    <ClCompile Include="src/backend/access/common/indextuple.c" />
+    <ClCompile Include="src/backend/access/common/printsimple.c" />
+    <ClCompile Include="src/backend/access/common/printtup.c" />
+    <ClCompile Include="src/backend/access/common/relation.c" />
+    <ClCompile Include="src/backend/access/common/reloptions.c" />
+    <ClCompile Include="src/backend/access/common/scankey.c" />
+    <ClCompile Include="src/backend/access/common/session.c" />
+    <ClCompile Include="src/backend/access/common/syncscan.c" />
+    <ClCompile Include="src/backend/access/common/toast_compression.c" />
+    <ClCompile Include="src/backend/access/common/toast_internals.c" />
+    <ClCompile Include="src/backend/access/common/tupconvert.c" />
+    <ClCompile Include="src/backend/access/common/tupdesc.c" />
+    <ClCompile Include="src/backend/access/gin/ginarrayproc.c" />
+    <ClCompile Include="src/backend/access/gin/ginbtree.c" />
+    <ClCompile Include="src/backend/access/gin/ginbulk.c" />
+    <ClCompile Include="src/backend/access/gin/gindatapage.c" />
+    <ClCompile Include="src/backend/access/gin/ginentrypage.c" />
+    <ClCompile Include="src/backend/access/gin/ginfast.c" />
+    <ClCompile Include="src/backend/access/gin/ginget.c" />
+    <ClCompile Include="src/backend/access/gin/gininsert.c" />
+    <ClCompile Include="src/backend/access/gin/ginlogic.c" />
+    <ClCompile Include="src/backend/access/gin/ginpostinglist.c" />
+    <ClCompile Include="src/backend/access/gin/ginscan.c" />
+    <ClCompile Include="src/backend/access/gin/ginutil.c" />
+    <ClCompile Include="src/backend/access/gin/ginvacuum.c" />
+    <ClCompile Include="src/backend/access/gin/ginvalidate.c" />
+    <ClCompile Include="src/backend/access/gin/ginxlog.c" />
+    <ClCompile Include="src/backend/access/hash/hash.c" />
+    <ClCompile Include="src/backend/access/heap/hio.c" />
+    <ClCompile Include="src/backend/access/heap/pruneheap.c" />
+    <ClCompile Include="src/backend/access/heap/rewriteheap.c" />
+    <ClCompile Include="src/backend/access/heap/vacuumlazy.c" />
+    <ClCompile Include="src/backend/access/heap/visibilitymap.c" />
+    <ClCompile Include="src/backend/access/index/amapi.c" />
+    <ClCompile Include="src/backend/access/index/amvalidate.c" />
+    <ClCompile Include="src/backend/access/index/genam.c" />
+    <ClCompile Include="src/backend/access/index/indexam.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtcompare.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtdedup.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtinsert.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtpage.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtree.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtsearch.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtsort.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtsplitloc.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtutils.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtvalidate.c" />
+    <ClCompile Include="src/backend/access/nbtree/nbtxlog.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/brindesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/clogdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/committsdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/dbasedesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/genericdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/gindesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/gistdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/hashdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/heapdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/logicalmsgdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/mxactdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/nbtdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/relmapdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/replorigindesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/rmgrdesc_utils.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/seqdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/smgrdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/spgdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/standbydesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/tblspcdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/xactdesc.c" />
+    <ClCompile Include="src/backend/access/rmgrdesc/xlogdesc.c" />
+    <ClCompile Include="src/backend/access/spgist/spgdoinsert.c" />
+    <ClCompile Include="src/backend/access/spgist/spginsert.c" />
+    <ClCompile Include="src/backend/access/spgist/spgkdtreeproc.c" />
+    <ClCompile Include="src/backend/access/spgist/spgproc.c" />
+    <ClCompile Include="src/backend/access/spgist/spgquadtreeproc.c" />
+    <ClCompile Include="src/backend/access/spgist/spgscan.c" />
+    <ClCompile Include="src/backend/access/spgist/spgtextproc.c" />
+    <ClCompile Include="src/backend/access/spgist/spgutils.c" />
+    <ClCompile Include="src/backend/access/spgist/spgvacuum.c" />
+    <ClCompile Include="src/backend/access/spgist/spgvalidate.c" />
+    <ClCompile Include="src/backend/access/spgist/spgxlog.c" />
+    <ClCompile Include="src/backend/access/table/table.c" />
+    <ClCompile Include="src/backend/access/table/tableam.c" />
+    <ClCompile Include="src/backend/access/table/tableamapi.c" />
+    <ClCompile Include="src/backend/access/table/toast_helper.c" />
+    <ClCompile Include="src/backend/access/tablesample/bernoulli.c" />
+    <ClCompile Include="src/backend/access/tablesample/system.c" />
+    <ClCompile Include="src/backend/access/tablesample/tablesample.c" />
+    <ClCompile Include="src/backend/archive/shell_archive.c" />
+    <ClCompile Include="src/backend/backup/backup_manifest.c" />
+    <ClCompile Include="src/backend/backup/basebackup.c" />
+    <ClCompile Include="src/backend/backup/basebackup_copy.c" />
+    <ClCompile Include="src/backend/backup/basebackup_gzip.c" />
+    <ClCompile Include="src/backend/backup/basebackup_lz4.c" />
+    <ClCompile Include="src/backend/backup/basebackup_progress.c" />
+    <ClCompile Include="src/backend/backup/basebackup_server.c" />
+    <ClCompile Include="src/backend/backup/basebackup_sink.c" />
+    <ClCompile Include="src/backend/backup/basebackup_target.c" />
+    <ClCompile Include="src/backend/backup/basebackup_throttle.c" />
+    <ClCompile Include="src/backend/backup/basebackup_zstd.c" />
+    <ClCompile Include="src/backend/bootstrap/bootparse.c" />
+    <ClCompile Include="src/backend/bootstrap/bootscanner.c" />
+    <ClCompile Include="src/backend/bootstrap/bootstrap.c" />
+    <ClCompile Include="src/backend/catalog/aclchk.c" />
+    <ClCompile Include="src/backend/catalog/catalog.c" />
+    <ClCompile Include="src/backend/catalog/dependency.c" />
+    <ClCompile Include="src/backend/catalog/heap.c" />
+    <ClCompile Include="src/backend/catalog/index.c" />
+    <ClCompile Include="src/backend/catalog/indexing.c" />
+    <ClCompile Include="src/backend/catalog/namespace.c" />
+    <ClCompile Include="src/backend/catalog/objectaccess.c" />
+    <ClCompile Include="src/backend/catalog/objectaddress.c" />
+    <ClCompile Include="src/backend/catalog/partition.c" />
+    <ClCompile Include="src/backend/catalog/pg_aggregate.c" />
+    <ClCompile Include="src/backend/catalog/pg_attrdef.c" />
+    <ClCompile Include="src/backend/catalog/pg_cast.c" />
+    <ClCompile Include="src/backend/catalog/pg_class.c" />
+    <ClCompile Include="src/backend/catalog/pg_collation.c" />
+    <ClCompile Include="src/backend/catalog/pg_constraint.c" />
+    <ClCompile Include="src/backend/catalog/pg_conversion.c" />
+    <ClCompile Include="src/backend/catalog/pg_db_role_setting.c" />
+    <ClCompile Include="src/backend/catalog/pg_depend.c" />
+    <ClCompile Include="src/backend/catalog/pg_enum.c" />
+    <ClCompile Include="src/backend/catalog/pg_inherits.c" />
+    <ClCompile Include="src/backend/catalog/pg_largeobject.c" />
+    <ClCompile Include="src/backend/catalog/pg_namespace.c" />
+    <ClCompile Include="src/backend/catalog/pg_operator.c" />
+    <ClCompile Include="src/backend/catalog/pg_parameter_acl.c" />
+    <ClCompile Include="src/backend/catalog/pg_proc.c" />
+    <ClCompile Include="src/backend/catalog/pg_publication.c" />
+    <ClCompile Include="src/backend/catalog/pg_range.c" />
+    <ClCompile Include="src/backend/catalog/pg_shdepend.c" />
+    <ClCompile Include="src/backend/catalog/pg_subscription.c" />
+    <ClCompile Include="src/backend/catalog/pg_type.c" />
+    <ClCompile Include="src/backend/catalog/storage.c" />
+    <ClCompile Include="src/backend/catalog/toasting.c" />
+    <ClCompile Include="src/backend/commands/aggregatecmds.c" />
+    <ClCompile Include="src/backend/commands/alter.c" />
+    <ClCompile Include="src/backend/commands/amcmds.c" />
+    <ClCompile Include="src/backend/commands/analyze.c" />
+    <ClCompile Include="src/backend/commands/async.c" />
+    <ClCompile Include="src/backend/commands/cluster.c" />
+    <ClCompile Include="src/backend/commands/collationcmds.c" />
+    <ClCompile Include="src/backend/commands/comment.c" />
+    <ClCompile Include="src/backend/commands/constraint.c" />
+    <ClCompile Include="src/backend/commands/conversioncmds.c" />
+    <ClCompile Include="src/backend/commands/copy.c" />
+    <ClCompile Include="src/backend/commands/copyfrom.c" />
+    <ClCompile Include="src/backend/commands/copyfromparse.c" />
+    <ClCompile Include="src/backend/commands/copyto.c" />
+    <ClCompile Include="src/backend/commands/createas.c" />
+    <ClCompile Include="src/backend/commands/dbcommands.c" />
+    <ClCompile Include="src/backend/commands/define.c" />
+    <ClCompile Include="src/backend/commands/discard.c" />
+    <ClCompile Include="src/backend/commands/dropcmds.c" />
+    <ClCompile Include="src/backend/commands/event_trigger.c" />
+    <ClCompile Include="src/backend/commands/explain.c" />
+    <ClCompile Include="src/backend/commands/extension.c" />
+    <ClCompile Include="src/backend/commands/foreigncmds.c" />
+    <ClCompile Include="src/backend/commands/functioncmds.c" />
+    <ClCompile Include="src/backend/commands/indexcmds.c" />
+    <ClCompile Include="src/backend/commands/lockcmds.c" />
+    <ClCompile Include="src/backend/commands/matview.c" />
+    <ClCompile Include="src/backend/commands/opclasscmds.c" />
+    <ClCompile Include="src/backend/commands/operatorcmds.c" />
+    <ClCompile Include="src/backend/commands/policy.c" />
+    <ClCompile Include="src/backend/commands/portalcmds.c" />
+    <ClCompile Include="src/backend/commands/prepare.c" />
+    <ClCompile Include="src/backend/commands/proclang.c" />
+    <ClCompile Include="src/backend/commands/publicationcmds.c" />
+    <ClCompile Include="src/backend/commands/schemacmds.c" />
+    <ClCompile Include="src/backend/commands/seclabel.c" />
+    <ClCompile Include="src/backend/commands/sequence.c" />
+    <ClCompile Include="src/backend/commands/statscmds.c" />
+    <ClCompile Include="src/backend/commands/subscriptioncmds.c" />
+    <ClCompile Include="src/backend/commands/tablecmds.c" />
+    <ClCompile Include="src/backend/commands/tablespace.c" />
+    <ClCompile Include="src/backend/commands/trigger.c" />
+    <ClCompile Include="src/backend/commands/tsearchcmds.c" />
+    <ClCompile Include="src/backend/commands/typecmds.c" />
+    <ClCompile Include="src/backend/commands/user.c" />
+    <ClCompile Include="src/backend/commands/vacuum.c" />
+    <ClCompile Include="src/backend/commands/vacuumparallel.c" />
+    <ClCompile Include="src/backend/commands/variable.c" />
+    <ClCompile Include="src/backend/commands/view.c" />
+    <ClCompile Include="src/backend/executor/execAmi.c" />
+    <ClCompile Include="src/backend/executor/execAsync.c" />
+    <ClCompile Include="src/backend/executor/execCurrent.c" />
+    <ClCompile Include="src/backend/executor/execExpr.c" />
+    <ClCompile Include="src/backend/executor/execExprInterp.c" />
+    <ClCompile Include="src/backend/executor/execGrouping.c" />
+    <ClCompile Include="src/backend/executor/execIndexing.c" />
+    <ClCompile Include="src/backend/executor/execJunk.c" />
+    <ClCompile Include="src/backend/executor/execMain.c" />
+    <ClCompile Include="src/backend/executor/execParallel.c" />
+    <ClCompile Include="src/backend/executor/execPartition.c" />
+    <ClCompile Include="src/backend/executor/execProcnode.c" />
+    <ClCompile Include="src/backend/executor/execReplication.c" />
+    <ClCompile Include="src/backend/executor/execSRF.c" />
+    <ClCompile Include="src/backend/executor/execScan.c" />
+    <ClCompile Include="src/backend/executor/execTuples.c" />
+    <ClCompile Include="src/backend/executor/execUtils.c" />
+    <ClCompile Include="src/backend/executor/functions.c" />
+    <ClCompile Include="src/backend/executor/instrument.c" />
+    <ClCompile Include="src/backend/executor/nodeAgg.c" />
+    <ClCompile Include="src/backend/executor/nodeAppend.c" />
+    <ClCompile Include="src/backend/executor/nodeBitmapAnd.c" />
+    <ClCompile Include="src/backend/executor/nodeBitmapHeapscan.c" />
+    <ClCompile Include="src/backend/executor/nodeBitmapIndexscan.c" />
+    <ClCompile Include="src/backend/executor/nodeBitmapOr.c" />
+    <ClCompile Include="src/backend/executor/nodeCtescan.c" />
+    <ClCompile Include="src/backend/executor/nodeCustom.c" />
+    <ClCompile Include="src/backend/executor/nodeForeignscan.c" />
+    <ClCompile Include="src/backend/executor/nodeFunctionscan.c" />
+    <ClCompile Include="src/backend/executor/nodeGather.c" />
+    <ClCompile Include="src/backend/executor/nodeGatherMerge.c" />
+    <ClCompile Include="src/backend/executor/nodeGroup.c" />
+    <ClCompile Include="src/backend/executor/nodeHash.c" />
+    <ClCompile Include="src/backend/executor/nodeHashjoin.c" />
+    <ClCompile Include="src/backend/executor/nodeIncrementalSort.c" />
+    <ClCompile Include="src/backend/executor/nodeIndexonlyscan.c" />
+    <ClCompile Include="src/backend/executor/nodeIndexscan.c" />
+    <ClCompile Include="src/backend/executor/nodeLimit.c" />
+    <ClCompile Include="src/backend/executor/nodeLockRows.c" />
+    <ClCompile Include="src/backend/executor/nodeMaterial.c" />
+    <ClCompile Include="src/backend/executor/nodeMemoize.c" />
+    <ClCompile Include="src/backend/executor/nodeMergeAppend.c" />
+    <ClCompile Include="src/backend/executor/nodeMergejoin.c" />
+    <ClCompile Include="src/backend/executor/nodeModifyTable.c" />
+    <ClCompile Include="src/backend/executor/nodeNamedtuplestorescan.c" />
+    <ClCompile Include="src/backend/executor/nodeNestloop.c" />
+    <ClCompile Include="src/backend/executor/nodeProjectSet.c" />
+    <ClCompile Include="src/backend/executor/nodeRecursiveunion.c" />
+    <ClCompile Include="src/backend/executor/nodeResult.c" />
+    <ClCompile Include="src/backend/executor/nodeSamplescan.c" />
+    <ClCompile Include="src/backend/executor/nodeSeqscan.c" />
+    <ClCompile Include="src/backend/executor/nodeSetOp.c" />
+    <ClCompile Include="src/backend/executor/nodeSort.c" />
+    <ClCompile Include="src/backend/executor/nodeSubplan.c" />
+    <ClCompile Include="src/backend/executor/nodeSubqueryscan.c" />
+    <ClCompile Include="src/backend/executor/nodeTableFuncscan.c" />
+    <ClCompile Include="src/backend/executor/nodeTidrangescan.c" />
+    <ClCompile Include="src/backend/executor/nodeTidscan.c" />
+    <ClCompile Include="src/backend/executor/nodeUnique.c" />
+    <ClCompile Include="src/backend/executor/nodeValuesscan.c" />
+    <ClCompile Include="src/backend/executor/nodeWindowAgg.c" />
+    <ClCompile Include="src/backend/executor/nodeWorktablescan.c" />
+    <ClCompile Include="src/backend/executor/spi.c" />
+    <ClCompile Include="src/backend/executor/tqueue.c" />
+    <ClCompile Include="src/backend/executor/tstoreReceiver.c" />
+    <ClCompile Include="src/backend/foreign/foreign.c" />
+    <ClCompile Include="src/backend/jit/jit.c" />
+    <ClCompile Include="src/backend/lib/binaryheap.c" />
+    <ClCompile Include="src/backend/lib/bipartite_match.c" />
+    <ClCompile Include="src/backend/lib/bloomfilter.c" />
+    <ClCompile Include="src/backend/lib/dshash.c" />
+    <ClCompile Include="src/backend/lib/hyperloglog.c" />
+    <ClCompile Include="src/backend/lib/ilist.c" />
+    <ClCompile Include="src/backend/lib/integerset.c" />
+    <ClCompile Include="src/backend/lib/knapsack.c" />
+    <ClCompile Include="src/backend/lib/pairingheap.c" />
+    <ClCompile Include="src/backend/lib/rbtree.c" />
+    <ClCompile Include="src/backend/libpq/auth-sasl.c" />
+    <ClCompile Include="src/backend/libpq/auth-scram.c" />
+    <ClCompile Include="src/backend/libpq/auth.c" />
+    <ClCompile Include="src/backend/libpq/be-fsstubs.c" />
+    <ClCompile Include="src/backend/libpq/be-secure.c" />
+    <ClCompile Include="src/backend/libpq/crypt.c" />
+    <ClCompile Include="src/backend/libpq/hba.c" />
+    <ClCompile Include="src/backend/libpq/ifaddr.c" />
+    <ClCompile Include="src/backend/libpq/pqcomm.c" />
+    <ClCompile Include="src/backend/libpq/pqformat.c" />
+    <ClCompile Include="src/backend/libpq/pqmq.c" />
+    <ClCompile Include="src/backend/libpq/pqsignal.c" />
+    <ClCompile Include="src/backend/main/main.c" />
+    <ClCompile Include="src/backend/nodes/bitmapset.c" />
+    <ClCompile Include="src/backend/nodes/copyfuncs.c" />
+    <ClCompile Include="src/backend/nodes/equalfuncs.c" />
+    <ClCompile Include="src/backend/nodes/extensible.c" />
+    <ClCompile Include="src/backend/nodes/list.c" />
+    <ClCompile Include="src/backend/nodes/makefuncs.c" />
+    <ClCompile Include="src/backend/nodes/multibitmapset.c" />
+    <ClCompile Include="src/backend/nodes/nodeFuncs.c" />
+    <ClCompile Include="src/backend/nodes/nodes.c" />
+    <ClCompile Include="src/backend/nodes/outfuncs.c" />
+    <ClCompile Include="src/backend/nodes/params.c" />
+    <ClCompile Include="src/backend/nodes/print.c" />
+    <ClCompile Include="src/backend/nodes/queryjumblefuncs.c" />
+    <ClCompile Include="src/backend/nodes/read.c" />
+    <ClCompile Include="src/backend/nodes/readfuncs.c" />
+    <ClCompile Include="src/backend/nodes/tidbitmap.c" />
+    <ClCompile Include="src/backend/nodes/value.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_copy.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_cx.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_erx.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_eval.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_main.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_misc.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_mutation.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_ox1.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_ox2.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_pmx.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_pool.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_px.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_random.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_recombination.c" />
+    <ClCompile Include="src/backend/optimizer/geqo/geqo_selection.c" />
+    <ClCompile Include="src/backend/optimizer/path/allpaths.c" />
+    <ClCompile Include="src/backend/optimizer/path/clausesel.c" />
+    <ClCompile Include="src/backend/optimizer/path/costsize.c" />
+    <ClCompile Include="src/backend/optimizer/path/equivclass.c" />
+    <ClCompile Include="src/backend/optimizer/path/indxpath.c" />
+    <ClCompile Include="src/backend/optimizer/path/joinpath.c" />
+    <ClCompile Include="src/backend/optimizer/path/joinrels.c" />
+    <ClCompile Include="src/backend/optimizer/path/pathkeys.c" />
+    <ClCompile Include="src/backend/optimizer/path/tidpath.c" />
+    <ClCompile Include="src/backend/optimizer/plan/analyzejoins.c" />
+    <ClCompile Include="src/backend/optimizer/plan/createplan.c" />
+    <ClCompile Include="src/backend/optimizer/plan/initsplan.c" />
+    <ClCompile Include="src/backend/optimizer/plan/planagg.c" />
+    <ClCompile Include="src/backend/optimizer/plan/planmain.c" />
+    <ClCompile Include="src/backend/optimizer/plan/planner.c" />
+    <ClCompile Include="src/backend/optimizer/plan/setrefs.c" />
+    <ClCompile Include="src/backend/optimizer/plan/subselect.c" />
+    <ClCompile Include="src/backend/optimizer/prep/prepagg.c" />
+    <ClCompile Include="src/backend/optimizer/prep/prepjointree.c" />
+    <ClCompile Include="src/backend/optimizer/prep/prepqual.c" />
+    <ClCompile Include="src/backend/optimizer/prep/preptlist.c" />
+    <ClCompile Include="src/backend/optimizer/prep/prepunion.c" />
+    <ClCompile Include="src/backend/optimizer/util/appendinfo.c" />
+    <ClCompile Include="src/backend/optimizer/util/clauses.c" />
+    <ClCompile Include="src/backend/optimizer/util/inherit.c" />
+    <ClCompile Include="src/backend/optimizer/util/joininfo.c" />
+    <ClCompile Include="src/backend/optimizer/util/orclauses.c" />
+    <ClCompile Include="src/backend/optimizer/util/paramassign.c" />
+    <ClCompile Include="src/backend/optimizer/util/pathnode.c" />
+    <ClCompile Include="src/backend/optimizer/util/placeholder.c" />
+    <ClCompile Include="src/backend/optimizer/util/plancat.c" />
+    <ClCompile Include="src/backend/optimizer/util/predtest.c" />
+    <ClCompile Include="src/backend/optimizer/util/relnode.c" />
+    <ClCompile Include="src/backend/optimizer/util/restrictinfo.c" />
+    <ClCompile Include="src/backend/optimizer/util/tlist.c" />
+    <ClCompile Include="src/backend/optimizer/util/var.c" />
+    <ClCompile Include="src/backend/parser/analyze.c" />
+    <ClCompile Include="src/backend/parser/gram.c" />
+    <ClCompile Include="src/backend/parser/parse_agg.c" />
+    <ClCompile Include="src/backend/parser/parse_clause.c" />
+    <ClCompile Include="src/backend/parser/parse_coerce.c" />
+    <ClCompile Include="src/backend/parser/parse_collate.c" />
+    <ClCompile Include="src/backend/parser/parse_cte.c" />
+    <ClCompile Include="src/backend/parser/parse_enr.c" />
+    <ClCompile Include="src/backend/parser/parse_expr.c" />
+    <ClCompile Include="src/backend/parser/parse_func.c" />
+    <ClCompile Include="src/backend/parser/parse_merge.c" />
+    <ClCompile Include="src/backend/parser/parse_node.c" />
+    <ClCompile Include="src/backend/parser/parse_oper.c" />
+    <ClCompile Include="src/backend/parser/parse_param.c" />
+    <ClCompile Include="src/backend/parser/parse_relation.c" />
+    <ClCompile Include="src/backend/parser/parse_target.c" />
+    <ClCompile Include="src/backend/parser/parse_type.c" />
+    <ClCompile Include="src/backend/parser/parse_utilcmd.c" />
+    <ClCompile Include="src/backend/parser/parser.c" />
+    <ClCompile Include="src/backend/parser/scan.c" />
+    <ClCompile Include="src/backend/parser/scansup.c" />
+    <ClCompile Include="src/backend/partitioning/partbounds.c" />
+    <ClCompile Include="src/backend/partitioning/partdesc.c" />
+    <ClCompile Include="src/backend/partitioning/partprune.c" />
+    <ClCompile Include="src/backend/port/atomics.c" />
+    <ClCompile Include="src/backend/port/win32/crashdump.c" />
+    <ClCompile Include="src/backend/port/win32/signal.c" />
+    <ClCompile Include="src/backend/port/win32/socket.c" />
+    <ClCompile Include="src/backend/port/win32/timer.c" />
+    <ClCompile Include="src/backend/port/win32_sema.c" />
+    <ClCompile Include="src/backend/port/win32_shmem.c" />
+    <ClCompile Include="src/backend/postmaster/autovacuum.c" />
+    <ClCompile Include="src/backend/postmaster/auxprocess.c" />
+    <ClCompile Include="src/backend/postmaster/bgworker.c" />
+    <ClCompile Include="src/backend/postmaster/bgwriter.c" />
+    <ClCompile Include="src/backend/postmaster/checkpointer.c" />
+    <ClCompile Include="src/backend/postmaster/fork_process.c" />
+    <ClCompile Include="src/backend/postmaster/interrupt.c" />
+    <ClCompile Include="src/backend/postmaster/pgarch.c" />
+    <ClCompile Include="src/backend/postmaster/postmaster.c" />
+    <ClCompile Include="src/backend/postmaster/startup.c" />
+    <ClCompile Include="src/backend/postmaster/syslogger.c" />
+    <ClCompile Include="src/backend/postmaster/walwriter.c" />
+    <ClCompile Include="src/backend/regex/regcomp.c" />
+    <ClCompile Include="src/backend/regex/regerror.c" />
+    <ClCompile Include="src/backend/regex/regexec.c" />
+    <ClCompile Include="src/backend/regex/regexport.c" />
+    <ClCompile Include="src/backend/regex/regfree.c" />
+    <ClCompile Include="src/backend/regex/regprefix.c" />
+    <ClCompile Include="src/backend/replication/logical/applyparallelworker.c" />
+    <ClCompile Include="src/backend/replication/logical/decode.c" />
+    <ClCompile Include="src/backend/replication/logical/launcher.c" />
+    <ClCompile Include="src/backend/replication/logical/logical.c" />
+    <ClCompile Include="src/backend/replication/logical/logicalfuncs.c" />
+    <ClCompile Include="src/backend/replication/logical/message.c" />
+    <ClCompile Include="src/backend/replication/logical/origin.c" />
+    <ClCompile Include="src/backend/replication/logical/proto.c" />
+    <ClCompile Include="src/backend/replication/logical/relation.c" />
+    <ClCompile Include="src/backend/replication/logical/reorderbuffer.c" />
+    <ClCompile Include="src/backend/replication/logical/snapbuild.c" />
+    <ClCompile Include="src/backend/replication/logical/tablesync.c" />
+    <ClCompile Include="src/backend/replication/logical/worker.c" />
+    <ClCompile Include="src/backend/replication/repl_gram.c" />
+    <ClCompile Include="src/backend/replication/repl_scanner.c" />
+    <ClCompile Include="src/backend/replication/slot.c" />
+    <ClCompile Include="src/backend/replication/slotfuncs.c" />
+    <ClCompile Include="src/backend/replication/syncrep.c" />
+    <ClCompile Include="src/backend/replication/syncrep_gram.c" />
+    <ClCompile Include="src/backend/replication/syncrep_scanner.c" />
+    <ClCompile Include="src/backend/replication/walreceiver.c" />
+    <ClCompile Include="src/backend/replication/walreceiverfuncs.c" />
+    <ClCompile Include="src/backend/replication/walsender.c" />
+    <ClCompile Include="src/backend/rewrite/rewriteDefine.c" />
+    <ClCompile Include="src/backend/rewrite/rewriteHandler.c" />
+    <ClCompile Include="src/backend/rewrite/rewriteManip.c" />
+    <ClCompile Include="src/backend/rewrite/rewriteRemove.c" />
+    <ClCompile Include="src/backend/rewrite/rewriteSearchCycle.c" />
+    <ClCompile Include="src/backend/rewrite/rewriteSupport.c" />
+    <ClCompile Include="src/backend/rewrite/rowsecurity.c" />
+    <ClCompile Include="src/backend/statistics/dependencies.c" />
+    <ClCompile Include="src/backend/statistics/extended_stats.c" />
+    <ClCompile Include="src/backend/statistics/mcv.c" />
+    <ClCompile Include="src/backend/statistics/mvdistinct.c" />
+    <ClCompile Include="src/backend/storage/buffer/buf_init.c" />
+    <ClCompile Include="src/backend/storage/buffer/buf_table.c" />
+    <ClCompile Include="src/backend/storage/buffer/bufmgr.c" />
+    <ClCompile Include="src/backend/storage/buffer/freelist.c" />
+    <ClCompile Include="src/backend/storage/buffer/localbuf.c" />
+    <ClCompile Include="src/backend/storage/file/buffile.c" />
+    <ClCompile Include="src/backend/storage/file/copydir.c" />
+    <ClCompile Include="src/backend/storage/file/fd.c" />
+    <ClCompile Include="src/backend/storage/file/fileset.c" />
+    <ClCompile Include="src/backend/storage/file/reinit.c" />
+    <ClCompile Include="src/backend/storage/file/sharedfileset.c" />
+    <ClCompile Include="src/backend/storage/freespace/freespace.c" />
+    <ClCompile Include="src/backend/storage/freespace/fsmpage.c" />
+    <ClCompile Include="src/backend/storage/freespace/indexfsm.c" />
+    <ClCompile Include="src/backend/storage/ipc/barrier.c" />
+    <ClCompile Include="src/backend/storage/ipc/dsm.c" />
+    <ClCompile Include="src/backend/storage/ipc/dsm_impl.c" />
+    <ClCompile Include="src/backend/storage/ipc/ipc.c" />
+    <ClCompile Include="src/backend/storage/ipc/ipci.c" />
+    <ClCompile Include="src/backend/storage/ipc/latch.c" />
+    <ClCompile Include="src/backend/storage/ipc/pmsignal.c" />
+    <ClCompile Include="src/backend/storage/ipc/procarray.c" />
+    <ClCompile Include="src/backend/storage/ipc/procsignal.c" />
+    <ClCompile Include="src/backend/storage/ipc/shm_mq.c" />
+    <ClCompile Include="src/backend/storage/ipc/shm_toc.c" />
+    <ClCompile Include="src/backend/storage/ipc/shmem.c" />
+    <ClCompile Include="src/backend/storage/ipc/signalfuncs.c" />
+    <ClCompile Include="src/backend/storage/ipc/sinval.c" />
+    <ClCompile Include="src/backend/storage/ipc/sinvaladt.c" />
+    <ClCompile Include="src/backend/storage/ipc/standby.c" />
+    <ClCompile Include="src/backend/storage/large_object/inv_api.c" />
+    <ClCompile Include="src/backend/storage/lmgr/condition_variable.c" />
+    <ClCompile Include="src/backend/storage/lmgr/deadlock.c" />
+    <ClCompile Include="src/backend/storage/lmgr/lmgr.c" />
+    <ClCompile Include="src/backend/storage/lmgr/lock.c" />
+    <ClCompile Include="src/backend/storage/lmgr/lwlock.c" />
+    <ClCompile Include="src/backend/storage/lmgr/lwlocknames.c" />
+    <ClCompile Include="src/backend/storage/lmgr/predicate.c" />
+    <ClCompile Include="src/backend/storage/lmgr/proc.c" />
+    <ClCompile Include="src/backend/storage/lmgr/s_lock.c" />
+    <ClCompile Include="src/backend/storage/lmgr/spin.c" />
+    <ClCompile Include="src/backend/storage/page/bufpage.c" />
+    <ClCompile Include="src/backend/storage/page/checksum.c" />
+    <ClCompile Include="src/backend/storage/page/itemptr.c" />
+    <ClCompile Include="src/backend/storage/smgr/md.c" />
+    <ClCompile Include="src/backend/storage/smgr/smgr.c" />
+    <ClCompile Include="src/backend/storage/sync/sync.c" />
+    <ClCompile Include="src/backend/tcop/cmdtag.c" />
+    <ClCompile Include="src/backend/tcop/dest.c" />
+    <ClCompile Include="src/backend/tcop/fastpath.c" />
+    <ClCompile Include="src/backend/tcop/postgres.c" />
+    <ClCompile Include="src/backend/tcop/pquery.c" />
+    <ClCompile Include="src/backend/tcop/utility.c" />
+    <ClCompile Include="src/backend/tsearch/dict.c" />
+    <ClCompile Include="src/backend/tsearch/dict_ispell.c" />
+    <ClCompile Include="src/backend/tsearch/dict_simple.c" />
+    <ClCompile Include="src/backend/tsearch/dict_synonym.c" />
+    <ClCompile Include="src/backend/tsearch/dict_thesaurus.c" />
+    <ClCompile Include="src/backend/tsearch/regis.c" />
+    <ClCompile Include="src/backend/tsearch/spell.c" />
+    <ClCompile Include="src/backend/tsearch/to_tsany.c" />
+    <ClCompile Include="src/backend/tsearch/ts_locale.c" />
+    <ClCompile Include="src/backend/tsearch/ts_parse.c" />
+    <ClCompile Include="src/backend/tsearch/ts_selfuncs.c" />
+    <ClCompile Include="src/backend/tsearch/ts_typanalyze.c" />
+    <ClCompile Include="src/backend/tsearch/ts_utils.c" />
+    <ClCompile Include="src/backend/tsearch/wparser.c" />
+    <ClCompile Include="src/backend/tsearch/wparser_def.c" />
+    <ClCompile Include="src/backend/utils/activity/backend_progress.c" />
+    <ClCompile Include="src/backend/utils/activity/backend_status.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_archiver.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_bgwriter.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_checkpointer.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_database.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_function.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_io.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_relation.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_replslot.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_shmem.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_slru.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_subscription.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_wal.c" />
+    <ClCompile Include="src/backend/utils/activity/pgstat_xact.c" />
+    <ClCompile Include="src/backend/utils/activity/wait_event.c" />
+    <ClCompile Include="src/backend/utils/adt/acl.c" />
+    <ClCompile Include="src/backend/utils/adt/amutils.c" />
+    <ClCompile Include="src/backend/utils/adt/array_expanded.c" />
+    <ClCompile Include="src/backend/utils/adt/array_selfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/array_typanalyze.c" />
+    <ClCompile Include="src/backend/utils/adt/array_userfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/arrayfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/arraysubs.c" />
+    <ClCompile Include="src/backend/utils/adt/arrayutils.c" />
+    <ClCompile Include="src/backend/utils/adt/ascii.c" />
+    <ClCompile Include="src/backend/utils/adt/bool.c" />
+    <ClCompile Include="src/backend/utils/adt/cash.c" />
+    <ClCompile Include="src/backend/utils/adt/char.c" />
+    <ClCompile Include="src/backend/utils/adt/cryptohashfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/date.c" />
+    <ClCompile Include="src/backend/utils/adt/datetime.c" />
+    <ClCompile Include="src/backend/utils/adt/datum.c" />
+    <ClCompile Include="src/backend/utils/adt/dbsize.c" />
+    <ClCompile Include="src/backend/utils/adt/domains.c" />
+    <ClCompile Include="src/backend/utils/adt/encode.c" />
+    <ClCompile Include="src/backend/utils/adt/enum.c" />
+    <ClCompile Include="src/backend/utils/adt/expandeddatum.c" />
+    <ClCompile Include="src/backend/utils/adt/expandedrecord.c" />
+    <ClCompile Include="src/backend/utils/adt/float.c" />
+    <ClCompile Include="src/backend/utils/adt/format_type.c" />
+    <ClCompile Include="src/backend/utils/adt/formatting.c" />
+    <ClCompile Include="src/backend/utils/adt/genfile.c" />
+    <ClCompile Include="src/backend/utils/adt/geo_ops.c" />
+    <ClCompile Include="src/backend/utils/adt/geo_selfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/geo_spgist.c" />
+    <ClCompile Include="src/backend/utils/adt/hbafuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/inet_cidr_ntop.c" />
+    <ClCompile Include="src/backend/utils/adt/inet_net_pton.c" />
+    <ClCompile Include="src/backend/utils/adt/int.c" />
+    <ClCompile Include="src/backend/utils/adt/int8.c" />
+    <ClCompile Include="src/backend/utils/adt/json.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonb.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonb_gin.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonb_op.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonb_util.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonbsubs.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonpath.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonpath_exec.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonpath_gram.c" />
+    <ClCompile Include="src/backend/utils/adt/jsonpath_scan.c" />
+    <ClCompile Include="src/backend/utils/adt/like.c" />
+    <ClCompile Include="src/backend/utils/adt/like_support.c" />
+    <ClCompile Include="src/backend/utils/adt/lockfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/mac.c" />
+    <ClCompile Include="src/backend/utils/adt/mac8.c" />
+    <ClCompile Include="src/backend/utils/adt/mcxtfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/misc.c" />
+    <ClCompile Include="src/backend/utils/adt/multirangetypes.c" />
+    <ClCompile Include="src/backend/utils/adt/multirangetypes_selfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/name.c" />
+    <ClCompile Include="src/backend/utils/adt/network.c" />
+    <ClCompile Include="src/backend/utils/adt/network_gist.c" />
+    <ClCompile Include="src/backend/utils/adt/network_selfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/network_spgist.c" />
+    <ClCompile Include="src/backend/utils/adt/numeric.c" />
+    <ClCompile Include="src/backend/utils/adt/numutils.c" />
+    <ClCompile Include="src/backend/utils/adt/oid.c" />
+    <ClCompile Include="src/backend/utils/adt/oracle_compat.c" />
+    <ClCompile Include="src/backend/utils/adt/orderedsetaggs.c" />
+    <ClCompile Include="src/backend/utils/adt/partitionfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/pg_locale.c" />
+    <ClCompile Include="src/backend/utils/adt/pg_lsn.c" />
+    <ClCompile Include="src/backend/utils/adt/pg_upgrade_support.c" />
+    <ClCompile Include="src/backend/utils/adt/pgstatfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/pseudotypes.c" />
+    <ClCompile Include="src/backend/utils/adt/quote.c" />
+    <ClCompile Include="src/backend/utils/adt/rangetypes.c" />
+    <ClCompile Include="src/backend/utils/adt/rangetypes_gist.c" />
+    <ClCompile Include="src/backend/utils/adt/rangetypes_selfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/rangetypes_spgist.c" />
+    <ClCompile Include="src/backend/utils/adt/rangetypes_typanalyze.c" />
+    <ClCompile Include="src/backend/utils/adt/regexp.c" />
+    <ClCompile Include="src/backend/utils/adt/regproc.c" />
+    <ClCompile Include="src/backend/utils/adt/ri_triggers.c" />
+    <ClCompile Include="src/backend/utils/adt/rowtypes.c" />
+    <ClCompile Include="src/backend/utils/adt/ruleutils.c" />
+    <ClCompile Include="src/backend/utils/adt/selfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/tid.c" />
+    <ClCompile Include="src/backend/utils/adt/timestamp.c" />
+    <ClCompile Include="src/backend/utils/adt/trigfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/tsginidx.c" />
+    <ClCompile Include="src/backend/utils/adt/tsgistidx.c" />
+    <ClCompile Include="src/backend/utils/adt/tsquery.c" />
+    <ClCompile Include="src/backend/utils/adt/tsquery_cleanup.c" />
+    <ClCompile Include="src/backend/utils/adt/tsquery_gist.c" />
+    <ClCompile Include="src/backend/utils/adt/tsquery_op.c" />
+    <ClCompile Include="src/backend/utils/adt/tsquery_rewrite.c" />
+    <ClCompile Include="src/backend/utils/adt/tsquery_util.c" />
+    <ClCompile Include="src/backend/utils/adt/tsrank.c" />
+    <ClCompile Include="src/backend/utils/adt/tsvector.c" />
+    <ClCompile Include="src/backend/utils/adt/tsvector_op.c" />
+    <ClCompile Include="src/backend/utils/adt/tsvector_parser.c" />
+    <ClCompile Include="src/backend/utils/adt/uuid.c" />
+    <ClCompile Include="src/backend/utils/adt/varbit.c" />
+    <ClCompile Include="src/backend/utils/adt/varchar.c" />
+    <ClCompile Include="src/backend/utils/adt/varlena.c" />
+    <ClCompile Include="src/backend/utils/adt/version.c" />
+    <ClCompile Include="src/backend/utils/adt/windowfuncs.c" />
+    <ClCompile Include="src/backend/utils/adt/xid.c" />
+    <ClCompile Include="src/backend/utils/adt/xid8funcs.c" />
+    <ClCompile Include="src/backend/utils/adt/xml.c" />
+    <ClCompile Include="src/backend/utils/cache/attoptcache.c" />
+    <ClCompile Include="src/backend/utils/cache/catcache.c" />
+    <ClCompile Include="src/backend/utils/cache/evtcache.c" />
+    <ClCompile Include="src/backend/utils/cache/inval.c" />
+    <ClCompile Include="src/backend/utils/cache/lsyscache.c" />
+    <ClCompile Include="src/backend/utils/cache/partcache.c" />
+    <ClCompile Include="src/backend/utils/cache/plancache.c" />
+    <ClCompile Include="src/backend/utils/cache/relcache.c" />
+    <ClCompile Include="src/backend/utils/cache/relfilenumbermap.c" />
+    <ClCompile Include="src/backend/utils/cache/relmapper.c" />
+    <ClCompile Include="src/backend/utils/cache/spccache.c" />
+    <ClCompile Include="src/backend/utils/cache/syscache.c" />
+    <ClCompile Include="src/backend/utils/cache/ts_cache.c" />
+    <ClCompile Include="src/backend/utils/cache/typcache.c" />
+    <ClCompile Include="src/backend/utils/error/assert.c" />
+    <ClCompile Include="src/backend/utils/error/csvlog.c" />
+    <ClCompile Include="src/backend/utils/error/elog.c" />
+    <ClCompile Include="src/backend/utils/error/jsonlog.c" />
+    <ClCompile Include="src/backend/utils/fmgr/dfmgr.c" />
+    <ClCompile Include="src/backend/utils/fmgr/fmgr.c" />
+    <ClCompile Include="src/backend/utils/fmgr/funcapi.c" />
+    <ClCompile Include="src/backend/utils/fmgrtab.c" />
+    <ClCompile Include="src/backend/utils/hash/dynahash.c" />
+    <ClCompile Include="src/backend/utils/hash/pg_crc.c" />
+    <ClCompile Include="src/backend/utils/init/globals.c" />
+    <ClCompile Include="src/backend/utils/init/miscinit.c" />
+    <ClCompile Include="src/backend/utils/init/postinit.c" />
+    <ClCompile Include="src/backend/utils/init/usercontext.c" />
+    <ClCompile Include="src/backend/utils/mb/conv.c" />
+    <ClCompile Include="src/backend/utils/mb/mbutils.c" />
+    <ClCompile Include="src/backend/utils/mb/stringinfo_mb.c" />
+    <ClCompile Include="src/backend/utils/mb/wstrcmp.c" />
+    <ClCompile Include="src/backend/utils/mb/wstrncmp.c" />
+    <ClCompile Include="src/backend/utils/misc/conffiles.c" />
+    <ClCompile Include="src/backend/utils/misc/guc-file.c" />
+    <ClCompile Include="src/backend/utils/misc/guc.c" />
+    <ClCompile Include="src/backend/utils/misc/guc_funcs.c" />
+    <ClCompile Include="src/backend/utils/misc/guc_tables.c" />
+    <ClCompile Include="src/backend/utils/misc/help_config.c" />
+    <ClCompile Include="src/backend/utils/misc/pg_config.c" />
+    <ClCompile Include="src/backend/utils/misc/pg_controldata.c" />
+    <ClCompile Include="src/backend/utils/misc/pg_rusage.c" />
+    <ClCompile Include="src/backend/utils/misc/ps_status.c" />
+    <ClCompile Include="src/backend/utils/misc/queryenvironment.c" />
+    <ClCompile Include="src/backend/utils/misc/rls.c" />
+    <ClCompile Include="src/backend/utils/misc/sampling.c" />
+    <ClCompile Include="src/backend/utils/misc/superuser.c" />
+    <ClCompile Include="src/backend/utils/misc/timeout.c" />
+    <ClCompile Include="src/backend/utils/misc/tzparser.c" />
+    <ClCompile Include="src/backend/utils/mmgr/alignedalloc.c" />
+    <ClCompile Include="src/backend/utils/mmgr/aset.c" />
+    <ClCompile Include="src/backend/utils/mmgr/dsa.c" />
+    <ClCompile Include="src/backend/utils/mmgr/freepage.c" />
+    <ClCompile Include="src/backend/utils/mmgr/generation.c" />
+    <ClCompile Include="src/backend/utils/mmgr/mcxt.c" />
+    <ClCompile Include="src/backend/utils/mmgr/memdebug.c" />
+    <ClCompile Include="src/backend/utils/mmgr/portalmem.c" />
+    <ClCompile Include="src/backend/utils/mmgr/slab.c" />
+    <ClCompile Include="src/backend/utils/resowner/resowner.c" />
+    <ClCompile Include="src/backend/utils/sort/logtape.c" />
+    <ClCompile Include="src/backend/utils/sort/qsort_interruptible.c" />
+    <ClCompile Include="src/backend/utils/sort/sharedtuplestore.c" />
+    <ClCompile Include="src/backend/utils/sort/sortsupport.c" />
+    <ClCompile Include="src/backend/utils/sort/tuplesort.c" />
+    <ClCompile Include="src/backend/utils/sort/tuplesortvariants.c" />
+    <ClCompile Include="src/backend/utils/sort/tuplestore.c" />
+    <ClCompile Include="src/backend/utils/time/combocid.c" />
+    <ClCompile Include="src/backend/utils/time/snapmgr.c" />
+    <ClCompile Include="src/common/archive.c" />
+    <ClCompile Include="src/common/base64.c" />
+    <ClCompile Include="src/common/checksum_helper.c" />
+    <ClCompile Include="src/common/compression.c" />
+    <ClCompile Include="src/common/config_info.c" />
+    <ClCompile Include="src/common/controldata_utils.c" />
+    <ClCompile Include="src/common/cryptohash.c" />
+    <ClCompile Include="src/common/d2s.c" />
+    <ClCompile Include="src/common/encnames.c" />
+    <ClCompile Include="src/common/exec.c" />
+    <ClCompile Include="src/common/f2s.c" />
+    <ClCompile Include="src/common/file_perm.c" />
+    <ClCompile Include="src/common/file_utils.c" />
+    <ClCompile Include="src/common/hashfn.c" />
+    <ClCompile Include="src/common/hmac.c" />
+    <ClCompile Include="src/common/ip.c" />
+    <ClCompile Include="src/common/jsonapi.c" />
+    <ClCompile Include="src/common/keywords.c" />
+    <ClCompile Include="src/common/kwlookup.c" />
+    <ClCompile Include="src/common/link-canary.c" />
+    <ClCompile Include="src/common/md5.c" />
+    <ClCompile Include="src/common/md5_common.c" />
+    <ClCompile Include="src/common/percentrepl.c" />
+    <ClCompile Include="src/common/pg_get_line.c" />
+    <ClCompile Include="src/common/pg_lzcompress.c" />
+    <ClCompile Include="src/common/pg_prng.c" />
+    <ClCompile Include="src/common/pgfnames.c" />
+    <ClCompile Include="src/common/psprintf.c" />
+    <ClCompile Include="src/common/relpath.c" />
+    <ClCompile Include="src/common/rmtree.c" />
+    <ClCompile Include="src/common/saslprep.c" />
+    <ClCompile Include="src/common/scram-common.c" />
+    <ClCompile Include="src/common/sha1.c" />
+    <ClCompile Include="src/common/sha2.c" />
+    <ClCompile Include="src/common/string.c" />
+    <ClCompile Include="src/common/stringinfo.c" />
+    <ClCompile Include="src/common/unicode_norm.c" />
+    <ClCompile Include="src/common/username.c" />
+    <ClCompile Include="src/common/wait_error.c" />
+    <ClCompile Include="src/common/wchar.c" />
+    <ClCompile Include="src/port/bsearch_arg.c" />
+    <ClCompile Include="src/port/chklocale.c" />
+    <ClCompile Include="src/port/dirent.c" />
+    <ClCompile Include="src/port/dirmod.c" />
+    <ClCompile Include="src/port/explicit_bzero.c" />
+    <ClCompile Include="src/port/getopt.c" />
+    <ClCompile Include="src/port/getopt_long.c" />
+    <ClCompile Include="src/port/getpeereid.c" />
+    <ClCompile Include="src/port/inet_aton.c" />
+    <ClCompile Include="src/port/inet_net_ntop.c" />
+    <ClCompile Include="src/port/kill.c" />
+    <ClCompile Include="src/port/mkdtemp.c" />
+    <ClCompile Include="src/port/noblock.c" />
+    <ClCompile Include="src/port/open.c" />
+    <ClCompile Include="src/port/path.c" />
+    <ClCompile Include="src/port/pg_bitutils.c" />
+    <ClCompile Include="src/port/pg_crc32c_sb8.c" />
+    <ClCompile Include="src/port/pg_crc32c_sse42.c" />
+    <ClCompile Include="src/port/pg_crc32c_sse42_choose.c" />
+    <ClCompile Include="src/port/pg_strong_random.c" />
+    <ClCompile Include="src/port/pgcheckdir.c" />
+    <ClCompile Include="src/port/pgmkdirp.c" />
+    <ClCompile Include="src/port/pgsleep.c" />
+    <ClCompile Include="src/port/pgstrcasecmp.c" />
+    <ClCompile Include="src/port/pqsignal.c" />
+    <ClCompile Include="src/port/preadv.c" />
+    <ClCompile Include="src/port/pwritev.c" />
+    <ClCompile Include="src/port/qsort.c" />
+    <ClCompile Include="src/port/qsort_arg.c" />
+    <ClCompile Include="src/port/quotes.c" />
+    <ClCompile Include="src/port/snprintf.c" />
+    <ClCompile Include="src/port/strerror.c" />
+    <ClCompile Include="src/port/strlcat.c" />
+    <ClCompile Include="src/port/strlcpy.c" />
+    <ClCompile Include="src/port/system.c" />
+    <ClCompile Include="src/port/tar.c" />
+    <ClCompile Include="src/port/win32common.c" />
+    <ClCompile Include="src/port/win32dlopen.c" />
+    <ClCompile Include="src/port/win32env.c" />
+    <ClCompile Include="src/port/win32error.c" />
+    <ClCompile Include="src/port/win32fdatasync.c" />
+    <ClCompile Include="src/port/win32fseek.c" />
+    <ClCompile Include="src/port/win32gai_strerror.c" />
+    <ClCompile Include="src/port/win32getrusage.c" />
+    <ClCompile Include="src/port/win32gettimeofday.c" />
+    <ClCompile Include="src/port/win32link.c" />
+    <ClCompile Include="src/port/win32ntdll.c" />
+    <ClCompile Include="src/port/win32pread.c" />
+    <ClCompile Include="src/port/win32pwrite.c" />
+    <ClCompile Include="src/port/win32security.c" />
+    <ClCompile Include="src/port/win32setlocale.c" />
+    <ClCompile Include="src/port/win32stat.c" />
+    <ClCompile Include="src/timezone/localtime.c" />
+    <ClCompile Include="src/timezone/pgtz.c" />
+    <ClCompile Include="src/timezone/strftime.c" />   
+    <ClCompile Include="src/backend/access/brin/brin.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_bloom.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_inclusion.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_minmax.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_minmax_multi.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_pageops.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_revmap.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_tuple.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_validate.c">
+      <Filter>access\brin</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/brin/brin_xlog.c">
+      <Filter>access\brin</Filter>
+    </ClCompile> 
+    <ClCompile Include="src/backend/access/gist/gist.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistbuild.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistbuildbuffers.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistget.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistproc.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistscan.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistsplit.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistutil.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistvacuum.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistvalidate.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/gist/gistxlog.c">
+      <Filter>access\gist</Filter>
+    </ClCompile>      
+    <ClCompile Include="src/backend/access/transam/clog.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/commit_ts.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/generic_xlog.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/multixact.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/parallel.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/rmgr.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/slru.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/subtrans.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/timeline.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/transam.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/twophase.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/twophase_rmgr.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/varsup.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogarchive.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogbackup.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogfuncs.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xloginsert.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogprefetcher.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogreader.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogstats.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogrecovery.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xlogutils.c">
+      <Filter>access\transam</Filter>
+    </ClCompile>
+    <ClCompile Include="src/backend/access/transam/xact.c" />
+    <ClCompile Include="src/backend/access/transam/xlog.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src/backend/bootstrap/bootparse.y" />
+    <CustomBuild Include="src/backend/bootstrap/bootscanner.l" />
+    <CustomBuild Include="src/backend/parser/gram.y" />
+    <CustomBuild Include="src/backend/parser/scan.l" />
+    <CustomBuild Include="src/backend/replication/repl_gram.y" />
+    <CustomBuild Include="src/backend/replication/repl_scanner.l" />
+    <CustomBuild Include="src/backend/replication/syncrep_gram.y" />
+    <CustomBuild Include="src/backend/replication/syncrep_scanner.l" />
+    <CustomBuild Include="src/backend/utils/adt/jsonpath_gram.y" />
+    <CustomBuild Include="src/backend/utils/adt/jsonpath_scan.l" />
+    <CustomBuild Include="src/backend/utils/misc/guc-file.l" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src/backend/win32ver.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="access">
+      <UniqueIdentifier>{560eec77-6752-47b2-86c5-b9d15ce8974b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\transam">
+      <UniqueIdentifier>{9994cdcd-d1fe-4b6c-b200-5274918172d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\brin">
+      <UniqueIdentifier>{0749e643-1dda-4ad7-80de-fbef46c580b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\gin">
+      <UniqueIdentifier>{bb702d26-dbc8-43f2-ab62-edbfd0ad811c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\gist">
+      <UniqueIdentifier>{670a4d9f-91cf-4b72-96b3-1bd295432d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\hash">
+      <UniqueIdentifier>{17362676-804c-4ca7-8b11-0f03bc601890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\heap">
+      <UniqueIdentifier>{1d897f99-728d-40f4-b6c5-3afe19d50f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\index">
+      <UniqueIdentifier>{4d3f1907-ba79-4c96-99a3-ffdb93183a90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\nbtree">
+      <UniqueIdentifier>{7d532f6b-9b77-484e-be1f-775abe7bb25b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\spgist">
+      <UniqueIdentifier>{256a23fc-18de-4f6e-a990-438127082e56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="access\table">
+      <UniqueIdentifier>{3443f9ea-0bfb-4dc7-8b96-10096f5a96ac}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
