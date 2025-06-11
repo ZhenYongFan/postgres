@@ -5752,9 +5752,19 @@ get_select_query_def(Query *query, deparse_context *context)
 	{
 		if (query->limitOption == LIMIT_OPTION_WITH_TIES)
 		{
+			/*
+			 * The limitCount arg is a c_expr, so it needs parens. Simple
+			 * literals and function expressions would not need parens, but
+			 * unfortunately it's hard to tell if the expression will be
+			 * printed as a simple literal like 123 or as a typecast
+			 * expression, like '-123'::int4. The grammar accepts the former
+			 * without quoting, but not the latter.
+			 */
 			appendContextKeyword(context, " FETCH FIRST ",
 								 -PRETTYINDENT_STD, PRETTYINDENT_STD, 0);
+			appendStringInfoChar(buf, '(');
 			get_rule_expr(query->limitCount, context, false);
+			appendStringInfoChar(buf, ')');
 			appendStringInfoString(buf, " ROWS WITH TIES");
 		}
 		else
@@ -9898,9 +9908,16 @@ get_rule_expr(Node *node, deparse_context *context,
 					}
 				}
 				if (xexpr->op == IS_XMLSERIALIZE)
+				{
 					appendStringInfo(buf, " AS %s",
 									 format_type_with_typemod(xexpr->type,
 															  xexpr->typmod));
+					if (xexpr->indent)
+						appendStringInfoString(buf, " INDENT");
+					else
+						appendStringInfoString(buf, " NO INDENT");
+				}
+
 				if (xexpr->op == IS_DOCUMENT)
 					appendStringInfoString(buf, " IS DOCUMENT");
 				else
@@ -10250,7 +10267,7 @@ get_rule_expr(Node *node, deparse_context *context,
 
 						get_rule_expr((Node *) lfirst(lc2), context, showimplicit);
 						appendStringInfo(buf, " AS %s",
-										 ((String *) lfirst_node(String, lc1))->sval);
+										 quote_identifier(lfirst_node(String, lc1)->sval));
 					}
 				}
 
@@ -11621,7 +11638,8 @@ get_xmltable(TableFunc *tf, deparse_context *context, bool showimplicit)
 			if (ns_node != NULL)
 			{
 				get_rule_expr(expr, context, showimplicit);
-				appendStringInfo(buf, " AS %s", strVal(ns_node));
+				appendStringInfo(buf, " AS %s",
+								 quote_identifier(strVal(ns_node)));
 			}
 			else
 			{

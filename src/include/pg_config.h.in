@@ -103,6 +103,10 @@
    `LLVMCreatePerfJITEventListener', and to 0 if you don't. */
 #undef HAVE_DECL_LLVMCREATEPERFJITEVENTLISTENER
 
+/* Define to 1 if you have the declaration of `memset_s', and to 0 if you
+   don't. */
+#undef HAVE_DECL_MEMSET_S
+
 /* Define to 1 if you have the declaration of `posix_fadvise', and to 0 if you
    don't. */
 #undef HAVE_DECL_POSIX_FADVISE
@@ -114,6 +118,10 @@
 /* Define to 1 if you have the declaration of `pwritev', and to 0 if you
    don't. */
 #undef HAVE_DECL_PWRITEV
+
+/* Define to 1 if you have the declaration of `strchrnul', and to 0 if you
+   don't. */
+#undef HAVE_DECL_STRCHRNUL
 
 /* Define to 1 if you have the declaration of `strlcat', and to 0 if you
    don't. */
@@ -297,9 +305,6 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
-/* Define to 1 if you have the `memset_s' function. */
-#undef HAVE_MEMSET_S
-
 /* Define to 1 if you have the `mkdtemp' function. */
 #undef HAVE_MKDTEMP
 
@@ -392,9 +397,6 @@
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
-
-/* Define to 1 if you have the `strchrnul' function. */
-#undef HAVE_STRCHRNUL
 
 /* Define to 1 if you have the `strerror_r' function. */
 #undef HAVE_STRERROR_R

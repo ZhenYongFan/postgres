@@ -87,6 +87,9 @@ wrapper_handler(SIGNAL_ARGS)
 {
 	int			save_errno = errno;
 
+	Assert(postgres_signal_arg > 0);
+	Assert(postgres_signal_arg < PG_NSIG);
+
 #ifndef FRONTEND
 
 	/*
@@ -123,6 +126,10 @@ wrapper_handler(SIGNAL_ARGS)
  * function instead of providing potentially-bogus return values.
  * Unfortunately, that requires modifying the pqsignal() in legacy-pqsignal.c,
  * which in turn requires an SONAME bump, which is probably not worth it.
+ *
+ * Note: the actual name of this function is either pqsignal_fe when
+ * compiled with -DFRONTEND, or pqsignal when compiled without that.
+ * This is to avoid a name collision with libpq's legacy-pqsignal.c.
  */
 pqsigfunc
 pqsignal(int signo, pqsigfunc func)
@@ -135,6 +142,7 @@ pqsignal(int signo, pqsigfunc func)
 	pqsigfunc	ret;
 #endif
 
+	Assert(signo > 0);
 	Assert(signo < PG_NSIG);
 
 	if (func != SIG_IGN && func != SIG_DFL)

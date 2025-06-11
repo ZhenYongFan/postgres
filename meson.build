@@ -8,7 +8,7 @@
 
 project('postgresql',
   ['c'],
-  version: '17.2',
+  version: '17.5',
   license: 'PostgreSQL',
 
   # We want < 0.56 for python 3.5 compatibility on old platforms. EPEL for
@@ -547,7 +547,8 @@ test_c_args = cppflags + cflags
 bsd_authopt = get_option('bsd_auth')
 bsd_auth = not_found_dep
 if cc.check_header('bsd_auth.h', required: bsd_authopt,
-    args: test_c_args, include_directories: postgres_inc)
+    args: test_c_args, prefix: '#include <sys/types.h>',
+    include_directories: postgres_inc)
   cdata.set('USE_BSD_AUTH', 1)
   bsd_auth = declare_dependency()
 endif
@@ -1333,14 +1334,37 @@ if sslopt in ['auto', 'openssl']
 
   # via library + headers
   if not ssl.found()
+    is_windows = host_system == 'windows'
+
+    ssl_lib_common_params = {
+      'dirs': test_lib_d,
+      'header_include_directories': postgres_inc,
+      'has_headers': ['openssl/ssl.h', 'openssl/err.h'],
+    }
     ssl_lib = cc.find_library('ssl',
-      dirs: test_lib_d,
-      header_include_directories: postgres_inc,
-      has_headers: ['openssl/ssl.h', 'openssl/err.h'],
-      required: openssl_required)
+      kwargs: ssl_lib_common_params,
+      required: openssl_required and not is_windows
+    )
+    # Before OpenSSL 1.1.0, there was a different naming convention for
+    # libraries on Windows, so try the alternative name if ssl wasn't found
+    if not ssl_lib.found() and is_windows
+      ssl_lib = cc.find_library('ssleay32',
+        kwargs: ssl_lib_common_params,
+        required: openssl_required
+      )
+    endif
+
     crypto_lib = cc.find_library('crypto',
       dirs: test_lib_d,
-      required: openssl_required)
+      required: openssl_required and not is_windows)
+    # Before OpenSSL 1.1.0, there was a different naming convention for
+    # libraries on Windows, so try the alternatve name if crypto wasn't found
+    if not crypto_lib.found() and is_windows
+      crypto_lib = cc.find_library('libeay32',
+        dirs: test_lib_d,
+        required: openssl_required)
+    endif
+
     if ssl_lib.found() and crypto_lib.found()
       ssl_int = [ssl_lib, crypto_lib]
       ssl = declare_dependency(dependencies: ssl_int, include_directories: postgres_inc)
@@ -2445,6 +2469,8 @@ decl_checks = [
 decl_checks += [
   ['preadv', 'sys/uio.h'],
   ['pwritev', 'sys/uio.h'],
+  ['strchrnul', 'string.h'],
+  ['memset_s', 'string.h', '#define __STDC_WANT_LIB_EXT1__ 1'],
 ]
 
 # Check presence of some optional LLVM functions.
@@ -2458,11 +2484,28 @@ endif
 foreach c : decl_checks
   func = c.get(0)
   header = c.get(1)
-  args = c.get(2, {})
+  prologue = c.get(2, '')
+  args = c.get(3, {})
   varname = 'HAVE_DECL_' + func.underscorify().to_upper()
 
-  found = cc.has_header_symbol(header, func,
-    args: test_c_args, include_directories: postgres_inc,
+  found = cc.compiles('''
+@0@
+#include <@1@>
+
+int main()
+{
+#ifndef @2@
+    (void) @2@;
+#endif
+
+return 0;
+}
+'''.format(prologue, header, func),
+    name: 'test whether @0@ is declared'.format(func),
+    # need to add cflags_warn to get at least
+    # -Werror=unguarded-availability-new if applicable
+    args: test_c_args + cflags_warn,
+    include_directories: postgres_inc,
     kwargs: args)
   cdata.set10(varname, found, description:
 '''Define to 1 if you have the declaration of `@0@', and to 0 if you
@@ -2686,7 +2729,6 @@ func_checks = [
   ['inet_pton'],
   ['kqueue'],
   ['mbstowcs_l'],
-  ['memset_s'],
   ['mkdtemp'],
   ['posix_fadvise'],
   ['posix_fallocate'],
@@ -2700,7 +2742,6 @@ func_checks = [
   ['shm_unlink', {'dependencies': [rt_dep], 'define': false}],
   ['shmget', {'dependencies': [cygipc_dep], 'define': false}],
   ['socket', {'dependencies': [socket_dep], 'define': false}],
-  ['strchrnul'],
   ['strerror_r', {'dependencies': [thread_dep]}],
   ['strlcat'],
   ['strlcpy'],
@@ -3078,6 +3119,16 @@ frontend_shlib_code = declare_dependency(
   dependencies: [shlib_code, os_deps, libintl],
 )
 
+# For frontend code that doesn't use fe_utils - this mainly exists for libpq's
+# tests, which are defined before fe_utils is defined, as fe_utils depends on
+# libpq.
+frontend_no_fe_utils_code = declare_dependency(
+  include_directories: [postgres_inc],
+  link_with: [common_static, pgport_static],
+  sources: generated_headers,
+  dependencies: [os_deps, libintl],
+)
+
 # Dependencies both for static and shared libpq
 libpq_deps += [
   thread_dep,
@@ -3145,7 +3196,6 @@ subdir('src')
 subdir('contrib')
 
 subdir('src/test')
-subdir('src/interfaces/libpq/test')
 subdir('src/interfaces/ecpg/test')
 
 subdir('doc/src/sgml')
@@ -3239,15 +3289,21 @@ if libintl.found() and meson.version().version_compare('>=0.60')
 endif
 
 
-all_built = [
+# all targets that 'meson install' needs
+installed_targets = [
   backend_targets,
   bin_targets,
   libpq_st,
   pl_targets,
   contrib_targets,
   nls_mo_targets,
-  testprep_targets,
   ecpg_targets,
+]
+
+# all targets that require building code
+all_built = [
+  installed_targets,
+  testprep_targets,
 ]
 
 # Meson's default install target is quite verbose. Provide one that is quiet.
@@ -3256,7 +3312,7 @@ install_quiet = custom_target('install-quiet',
   build_always_stale: true,
   build_by_default: false,
   command: [meson_bin, meson_args, 'install', '--quiet', '--no-rebuild'],
-  depends: all_built,
+  depends: installed_targets,
 )
 
 # Target to install files used for tests, which aren't installed by default
@@ -3311,6 +3367,7 @@ test('tmp_install',
     priority: setup_tests_priority,
     timeout: 300,
     is_parallel: false,
+    depends: installed_targets,
     suite: ['setup'])
 
 test('install_test_files',
@@ -3335,6 +3392,8 @@ test_initdb_template = meson.build_root() / 'tmp_install' / 'initdb-template'
 test_env.set('PG_REGRESS', pg_regress.full_path())
 test_env.set('REGRESS_SHLIB', regress_module.full_path())
 test_env.set('INITDB_TEMPLATE', test_initdb_template)
+# for Cluster.pm's portlock logic
+test_env.set('top_builddir', meson.build_root())
 
 # Test suites that are not safe by default but can be run if selected
 # by the user via the whitespace-separated list in variable PG_TEST_EXTRA.

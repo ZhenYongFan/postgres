@@ -53,6 +53,7 @@
 #include "catalog/catalog.h"
 #include "catalog/pg_database.h"
 #include "catalog/pg_database_d.h"
+#include "catalog/pg_replication_origin.h"
 #include "commands/vacuum.h"
 #include "miscadmin.h"
 #include "pgstat.h"
@@ -65,10 +66,12 @@
 #include "storage/procarray.h"
 #include "storage/standby.h"
 #include "utils/datum.h"
+#include "utils/injection_point.h"
 #include "utils/inval.h"
 #include "utils/relcache.h"
 #include "utils/snapmgr.h"
 #include "utils/spccache.h"
+#include "utils/syscache.h"
 
 
 static HeapTuple heap_prepare_insert(Relation relation, HeapTuple tup,
@@ -227,6 +230,38 @@ static const int MultiXactStatusLock[MaxMultiXactStatus + 1] =
 /* Get the LockTupleMode for a given MultiXactStatus */
 #define TUPLOCK_from_mxstatus(status) \
 			(MultiXactStatusLock[(status)])
+
+/*
+ * Check that we have a valid snapshot if we might need TOAST access.
+ */
+static inline void
+AssertHasSnapshotForToast(Relation rel)
+{
+#ifdef USE_ASSERT_CHECKING
+
+	/* bootstrap mode in particular breaks this rule */
+	if (!IsNormalProcessingMode())
+		return;
+
+	/* if the relation doesn't have a TOAST table, we are good */
+	if (!OidIsValid(rel->rd_rel->reltoastrelid))
+		return;
+
+	/*
+	 * Commit 16bf24e fixed accesses to pg_replication_origin without a
+	 * an active snapshot by removing its TOAST table.  On older branches,
+	 * these bugs are left in place.  Its only varlena column is roname (the
+	 * replication origin name), so this is only a problem if the name
+	 * requires out-of-line storage, which seems unlikely.  In any case,
+	 * fixing it doesn't seem worth extra code churn on the back-branches.
+	 */
+	if (RelationGetRelid(rel) == ReplicationOriginRelationId)
+		return;
+
+	Assert(HaveRegisteredOrActiveSnapshot());
+
+#endif							/* USE_ASSERT_CHECKING */
+}
 
 /* ----------------------------------------------------------------
  *						 heap support routines
@@ -2013,6 +2048,8 @@ heap_insert(Relation relation, HeapTuple tup, CommandId cid,
 	Assert(HeapTupleHeaderGetNatts(tup->t_data) <=
 		   RelationGetNumberOfAttributes(relation));
 
+	AssertHasSnapshotForToast(relation);
+
 	/*
 	 * Fill in tuple header fields and toast the tuple if necessary.
 	 *
@@ -2289,6 +2326,8 @@ heap_multi_insert(Relation relation, TupleTableSlot **slots, int ntuples,
 
 	/* currently not needed (thus unsupported) for heap_multi_insert() */
 	Assert(!(options & HEAP_INSERT_NO_LOGICAL));
+
+	AssertHasSnapshotForToast(relation);
 
 	needwal = RelationNeedsWAL(relation);
 	saveFreeSpace = RelationGetTargetPageFreeSpace(relation,
@@ -2711,6 +2750,8 @@ heap_delete(Relation relation, ItemPointer tid,
 	bool		old_key_copied = false;
 
 	Assert(ItemPointerIsValid(tid));
+
+	AssertHasSnapshotForToast(relation);
 
 	/*
 	 * Forbid this during a parallel operation, lest it allocate a combo CID.
@@ -3207,6 +3248,8 @@ heap_update(Relation relation, ItemPointer otid, HeapTuple newtup,
 	Assert(HeapTupleHeaderGetNatts(newtup->t_data) <=
 		   RelationGetNumberOfAttributes(relation));
 
+	AssertHasSnapshotForToast(relation);
+
 	/*
 	 * Forbid this during a parallel operation, lest it allocate a combo CID.
 	 * Other workers might need that combo CID for visibility checks, and we
@@ -3251,6 +3294,7 @@ heap_update(Relation relation, ItemPointer otid, HeapTuple newtup,
 	interesting_attrs = bms_add_members(interesting_attrs, id_attrs);
 
 	block = ItemPointerGetBlockNumber(otid);
+	INJECTION_POINT("heap_update-before-pin");
 	buffer = ReadBuffer(relation, block);
 	page = BufferGetPage(buffer);
 
@@ -3266,7 +3310,51 @@ heap_update(Relation relation, ItemPointer otid, HeapTuple newtup,
 	LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
 
 	lp = PageGetItemId(page, ItemPointerGetOffsetNumber(otid));
-	Assert(ItemIdIsNormal(lp));
+
+	/*
+	 * Usually, a buffer pin and/or snapshot blocks pruning of otid, ensuring
+	 * we see LP_NORMAL here.  When the otid origin is a syscache, we may have
+	 * neither a pin nor a snapshot.  Hence, we may see other LP_ states, each
+	 * of which indicates concurrent pruning.
+	 *
+	 * Failing with TM_Updated would be most accurate.  However, unlike other
+	 * TM_Updated scenarios, we don't know the successor ctid in LP_UNUSED and
+	 * LP_DEAD cases.  While the distinction between TM_Updated and TM_Deleted
+	 * does matter to SQL statements UPDATE and MERGE, those SQL statements
+	 * hold a snapshot that ensures LP_NORMAL.  Hence, the choice between
+	 * TM_Updated and TM_Deleted affects only the wording of error messages.
+	 * Settle on TM_Deleted, for two reasons.  First, it avoids complicating
+	 * the specification of when tmfd->ctid is valid.  Second, it creates
+	 * error log evidence that we took this branch.
+	 *
+	 * Since it's possible to see LP_UNUSED at otid, it's also possible to see
+	 * LP_NORMAL for a tuple that replaced LP_UNUSED.  If it's a tuple for an
+	 * unrelated row, we'll fail with "duplicate key value violates unique".
+	 * XXX if otid is the live, newer version of the newtup row, we'll discard
+	 * changes originating in versions of this catalog row after the version
+	 * the caller got from syscache.  See syscache-update-pruned.spec.
+	 */
+	if (!ItemIdIsNormal(lp))
+	{
+		Assert(RelationSupportsSysCache(RelationGetRelid(relation)));
+
+		UnlockReleaseBuffer(buffer);
+		Assert(!have_tuple_lock);
+		if (vmbuffer != InvalidBuffer)
+			ReleaseBuffer(vmbuffer);
+		tmfd->ctid = *otid;
+		tmfd->xmax = InvalidTransactionId;
+		tmfd->cmax = InvalidCommandId;
+		*update_indexes = TU_None;
+
+		bms_free(hot_attrs);
+		bms_free(sum_attrs);
+		bms_free(key_attrs);
+		bms_free(id_attrs);
+		/* modified_attrs not yet initialized */
+		bms_free(interesting_attrs);
+		return TM_Deleted;
+	}
 
 	/*
 	 * Fill in enough data in oldtup for HeapDetermineColumnsInfo to work
